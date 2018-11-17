@@ -35,26 +35,29 @@
           <version>4.0.25.Final</version>
       </dependency>
 
-      <!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client -->
+      <!-- https://mvnrepository.com/artifact/com.alibaba.rocketmq/rocketmq-client -->
       <dependency>
-          <groupId>org.apache.rocketmq</groupId>
+          <groupId>com.alibaba.rocketmq</groupId>
           <artifactId>rocketmq-client</artifactId>
-          <version>4.3.0</version>
+          <version>3.2.6</version>
       </dependency>
+
 
       <!-- https://mvnrepository.com/artifact/com.alibaba.rocketmq/rocketmq-common -->
       <dependency>
           <groupId>com.alibaba.rocketmq</groupId>
           <artifactId>rocketmq-common</artifactId>
-          <version>3.4.9</version>
+          <version>3.2.6</version>
       </dependency>
+
 
       <!-- https://mvnrepository.com/artifact/com.alibaba.rocketmq/rocketmq-remoting -->
       <dependency>
           <groupId>com.alibaba.rocketmq</groupId>
           <artifactId>rocketmq-remoting</artifactId>
-          <version>3.4.9</version>
+          <version>3.2.6</version>
       </dependency>
+
 
       <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
       <dependency>
