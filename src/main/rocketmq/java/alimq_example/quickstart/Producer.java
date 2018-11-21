@@ -13,40 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quickstart;
-
+package alimq_example.quickstart;
 
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
 import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
 
+
 /**
  * Producer，发送消息
- *
- * linux服务器上使用的是RocketMq 3.2.6版本 因此client common remoting 需要使用相应的版本
- * rocketmq java 客户端调用No route info of this topic错误(原因版本不一致)
+ * 
  */
 public class Producer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
-        //一个JVM程序中生产端和消费端的Groupname要唯一,最好使用一个Group这样在消费端对消息的处理才能做到负载均衡
-        DefaultMQProducer producer = new DefaultMQProducer("quickstartTopic");
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
 
-        producer.setNamesrvAddr("192.168.232.130:9876;192.168.232.132:9876");
-       // producer.setVipChannelEnabled(false);
-       // producer.setCreateTopicKey("AUTO_CREATE_TOPIC_KEY");
-        // 设置生产端的消息发送重试次数
-        producer.setRetryTimesWhenSendFailed(2);
         producer.start();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             try {
                 Message msg = new Message("TopicTest",// topic
-                    String.valueOf(i),// tag
+                    "TagA",// tag
                     ("Hello RocketMQ " + i).getBytes()// body
                         );
-                //一秒之内没有发送消息过去,就重试发送
-                SendResult sendResult = producer.send(msg,1000);
+                SendResult sendResult = producer.send(msg);
                 System.out.println(sendResult);
             }
             catch (Exception e) {

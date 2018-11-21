@@ -15,8 +15,6 @@
  */
 package quickstart;
 
-
-
 import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -27,14 +25,12 @@ import com.alibaba.rocketmq.common.message.MessageExt;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.charset.Charset;
 import java.util.List;
 
 
 
 /**
- * Consumer，订阅消息
+ * Consumer1，订阅消息
  */
 public class Consumer {
 
@@ -61,7 +57,6 @@ public class Consumer {
         * 一般就是一次处理一条数据
         * */
         consumer.setConsumeMessageBatchMaxSize(10);
-
 
 
         consumer.registerMessageListener(new MessageListenerConcurrently() {
@@ -92,7 +87,6 @@ public class Consumer {
                         logger.info("消费端待处理数据",exceptionMessage.toString(),e);
 
                         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-
                     }
                     /*消息重新发送*/
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;
@@ -104,7 +98,6 @@ public class Consumer {
 
         //消费线程启动
         consumer.start();
-
-        System.out.println("Consumer Started.");
+        System.out.println("Consumer1 Started.");
     }
 }
