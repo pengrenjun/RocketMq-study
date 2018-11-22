@@ -22,8 +22,11 @@ import com.alibaba.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
+import io.netty.util.CharsetUtil;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -42,15 +45,18 @@ public class Consumer2 {
          */
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
-        consumer.subscribe("orderTopic", "TagA || TagB || TagE");
+        consumer.subscribe("orderTopic", "*"  /*"TagA || TagC || TagD"*/);
 
+        //实现的接口为MessageListenerOrderly
         consumer.registerMessageListener(new MessageListenerOrderly() {
-            AtomicLong consumeTimes = new AtomicLong(0);
+            //AtomicLong consumeTimes = new AtomicLong(0);
 
 
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                context.setAutoCommit(false);
+
+
+              /*  context.setAutoCommit(false);
                 System.out.println(Thread.currentThread().getName() + " Receive New Messages: " + msgs);
                 this.consumeTimes.incrementAndGet();
                 if ((this.consumeTimes.get() % 2) == 0) {
@@ -65,8 +71,37 @@ public class Consumer2 {
                 else if ((this.consumeTimes.get() % 5) == 0) {
                     context.setSuspendCurrentQueueTimeMillis(3000);
                     return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
-                }
+                }*/
 
+                System.out.println("消费端读取的数据条数:"+msgs.size());
+                MessageExt exceptionMessage=null;
+                try {
+                    //System.out.println(Thread.currentThread().getName() + " Receive New Messages: " + msgs);
+                    for(MessageExt messageExt:msgs){
+                        System.out.println("Topic:"+messageExt.getTopic()+" Tag:"+messageExt.getTags()+" Body:"+new String(messageExt.getBody(),CharsetUtil.UTF_8));
+
+                       /* //模拟消费端处理数据异常,消息重试的处理
+                        if(messageExt.getTags().equals(String.valueOf(3))){
+                            exceptionMessage=messageExt;
+                            throw new Exception("消息处理异常!");
+                        }*/
+                        exceptionMessage=messageExt;
+                        //模拟消费处理
+                        TimeUnit.SECONDS.sleep(new Random().nextInt(2));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //消息重试处理 重试两次之后打印日志
+                    if(exceptionMessage!=null && exceptionMessage.getReconsumeTimes()==2){
+                        System.out.println("消费端待处理数据："+exceptionMessage.toString()+e.toString());
+                        //logger.info("消费端待处理数据",exceptionMessage.toString(),e);
+
+                        return ConsumeOrderlyStatus.SUCCESS;
+                    }
+                    /*消息重新发送*/
+                    return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+
+                }
                 return ConsumeOrderlyStatus.SUCCESS;
             }
         });

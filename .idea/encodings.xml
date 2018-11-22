@@ -2,5 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rocketmq-transaction-balance" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rocketmq-transaction-balance/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-balance/rocketmq-transaction-balance" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rocketmq-transaction-pay" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rocketmq-transaction-pay/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-pay/rocketmq-transaction-pay" charset="UTF-8" />
   </component>
 </project>

@@ -26,6 +26,7 @@ import com.alibaba.rocketmq.common.message.MessageQueue;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
 
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -34,42 +35,47 @@ import java.util.List;
 public class Producer {
     public static void main(String[] args) {
         try {
-            MQProducer producer = new DefaultMQProducer("orderGroup");
+            DefaultMQProducer producer = new DefaultMQProducer("orderGroup");
 
-            ((DefaultMQProducer) producer).setNamesrvAddr("192.168.232.130:9876;192.168.232.132:9876");
+            producer.setNamesrvAddr("192.168.232.130:9876;192.168.232.132:9876");
 
+            //定义一个Topic下面有5个Queue进行消息的存储
+            producer.setDefaultTopicQueueNums(5);
             producer.start();
 
             String[] tags = new String[] { "TagA", "TagB", "TagC", "TagD", "TagE" };
 
+            Random random=new Random();
             /*订单A*/
-            for (int i = 1; i < 5; i++) {
+            for (int i = 1; i <= 10; i++) {
                 // 订单ID相同的消息要有序,一个相同的订单里面有5个子任务 Tag进行区分
                 Message msg =
-                        new Message("orderTopic", tags[i-1], "KEY" + i,
+                        new Message("orderTopic", tags[random.nextInt(5)], "KEY" + i,
                             ("订单A :" + i+"任务").getBytes());
+
 
 
                 SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
                     /*一个Topic,Mq会默认给创建4个Queue*/
                     @Override
                     public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
-                       /* Integer id = (Integer) arg;
-                        int index = id % mqs.size();*/
+
+                        Integer id = (Integer) arg;
+                        int index = id % mqs.size();
 
                        //相同订单的任务消息放在同一个Queue保证消息的顺序消费,同时不同订单的消息任务数据分布在不同的Queue中进行处理还提高了数据处理的吞吐量
-                        return mqs.get(0);
+                        return mqs.get(index);
                     }
-                }, 0);
+                },0);//相同订单的arg应该相同,为数字类型
 
                 System.out.println("订单A:"+sendResult);
             }
 
             /*订单B*/
-            for (int i = 1; i < 5; i++) {
+            for (int i = 1; i <=10; i++) {
                 // 订单ID相同的消息要有序,一个相同的订单里面有5个子任务 Tag进行区分
                 Message msg =
-                        new Message("orderTopic", tags[i-1], "KEY" + i,
+                        new Message("orderTopic", tags[random.nextInt(5)], "KEY" + i,
                                 ("订单B :" + i+"任务").getBytes());
 
 
@@ -87,10 +93,10 @@ public class Producer {
             }
 
             /*订单C*/
-            for (int i = 1; i < 5; i++) {
+            for (int i = 1; i <= 10; i++) {
                 // 订单ID相同的消息要有序,一个相同的订单里面有5个子任务 Tag进行区分
                 Message msg =
-                        new Message("orderTopic", tags[i-1], "KEY" + i,
+                        new Message("orderTopic", tags[random.nextInt(5)], "KEY" + i,
                                 ("订单C :" + i+"任务").getBytes());
 
 

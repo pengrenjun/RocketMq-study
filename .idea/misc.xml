@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../rocketmq-transaction-balance" />
+    <file type="web" url="file://$PROJECT_DIR$/../rocketmq-transaction-pay" />
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../rocketmq-transaction-pay/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-pay/rocketmq-transaction-pay/pom.xml" />
+        <option value="$PROJECT_DIR$/../rocketmq-transaction-pay/pom.xml" />
+        <option value="$PROJECT_DIR$/../rocketmq-transaction-balance/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-balance/rocketmq-transaction-balance/pom.xml" />
+        <option value="$PROJECT_DIR$/../rocketmq-transaction-balance/pom.xml" />
       </list>
     </option>
   </component>

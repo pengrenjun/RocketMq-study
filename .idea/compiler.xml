@@ -7,8 +7,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="RocketMq-study" />
+        <module name="rocketmq-transaction-balance" />
+        <module name="rocketmq-transaction-balance (1)" />
+        <module name="rocketmq-transaction-balance (2)" />
+        <module name="rocketmq-transaction-pay" />
+        <module name="rocketmq-transaction-pay (1)" />
+        <module name="rocketmq-transaction-pay (2)" />
         <module name="RocketMqstudy" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="rocketmq-transaction-balance (2)" target="1.5" />
+      <module name="rocketmq-transaction-pay (2)" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../rocketmq-transaction-balance/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-balance/rocketmq-transaction-balance/rocketmq-transaction-balance (2).iml" filepath="$PROJECT_DIR$/../rocketmq-transaction-balance/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-balance/rocketmq-transaction-balance/rocketmq-transaction-balance (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/../rocketmq-transaction-pay/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-pay/rocketmq-transaction-pay/rocketmq-transaction-pay (2).iml" filepath="$PROJECT_DIR$/../rocketmq-transaction-pay/target/m2e-wtp/web-resources/META-INF/maven/rocketmq-transaction-pay/rocketmq-transaction-pay/rocketmq-transaction-pay (2).iml" />
+    </modules>
+  </component>
+</project>
